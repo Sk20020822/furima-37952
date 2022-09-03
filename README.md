@@ -25,12 +25,12 @@ Things you may want to cover:
 
 # テーブル設計
 
-## user テーブル
+## users テーブル
 
 | Column             | Type   | Options                   |
 | ------------------ | ------ | ------------------------- |
 | nickname           | string | null: false               |
-| email              | string | null: false               |
+| email              | string | null: false, unique: true |
 | encrypted_password | string | null: false               |
 | family_name        | string | null: false               |
 | first_name         | string | null: false               |
@@ -39,59 +39,36 @@ Things you may want to cover:
 | birth_day          | date   | null: false               |
 
 
-- has_many :prototypes
-- has_many :comments
+- has_many :product 
+- belongs_to :send 
 
-## product テーブル
+## products テーブル
 
 | Column             | Type       | Options                       |
 | ------------------ | ---------- | ----------------------------- |
 | name               | string     | null: false                   |
 | description        | text       | null: false                   |
-| category_id        | text       | null: false, foreign_key: true|
-| status             | references | null: false                   |
-| cost               | text       | null: false                   |
-| prefecture_id      | text       | null: false                   |
-| days               | text       | null: false                   |
+| category_id        | integer    | null: false, foreign_key: true|
+| status_id          | integer    | null: false                   |
+| cost_id            | integer    | null: false                   |
+| prefecture_id      | integer    | null: false                   |
+| days_id            | integer    | null: false                   |
 | price              | text       | null: false                   |
 | judgment           | text       |                               |
 
-- belongs_to :user dependent: :destroy
-- belongs_to :category dependent: :destroy
-- has_many :images dependent: :destroy
+- belongs_to :user 
 
-## send テーブル
+## sends テーブル
 
 | Column           | Type       | Options                        |
 | ---------------- | ---------- | ------------------------------ |
-| user_id          | integer    | null: false, foreign_key: true |
-| family_name      | string     | null: false                    |
-| first_name       | string     | null: false                    |
-| family_name_kana | string     | null: false                    |
-| first_name_kane  | string     | null: false                    |
+| user             | references | null: false, foreign_key: true |
 | post_code        | string     | null: false                    |
-| prefecture       | string     | null: false                    |
+| prefecture_id    | integer    | null: false                    |
 | city             | string     | null: false                    |
 | address          | string     | null: false                    |
 | building_name	   | string     |                                |
-| phone_number     | string     |                                |
+| phone_number     | string     | null: false                    |
 
 - belongs_to :user
 
-## image テーブル
-
-| Column           | Type       | Options                        |
-| ---------------- | ---------- | ------------------------------ |
-| image            | string     | null: false                    |
-| product_id       | integer    | null: false, foreign_key: true |
-
-- belongs_to :product
-
-## category テーブル
-
-| Column           | Type       | Options                        |
-| ---------------- | ---------- | ------------------------------ |
-| name             | string     | null: false                    |
-| ancesty          | integer    | null: false                    |
-
-- has_many :product
