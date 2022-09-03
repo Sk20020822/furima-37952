@@ -39,9 +39,9 @@ Things you may want to cover:
 | birth_day          | date   | null: false               |
 
 
-- has_many :products 
-- belongs_to :send 
-- has_one :record
+- has_many   :products 
+- has_many   :send 
+- has_one    :record
 
 ## products テーブル
 
@@ -49,14 +49,15 @@ Things you may want to cover:
 | ------------------ | ---------- | ----------------------------- |
 | name               | string     | null: false                   |
 | description        | text       | null: false                   |
-| category_id        | integer    | null: false, foreign_key: true|
+| category_id        | integer    | null: false                   |
 | status_id          | integer    | null: false                   |
 | cost_id            | integer    | null: false                   |
 | prefecture_id      | integer    | null: false                   |
 | days_id            | integer    | null: false                   |
 | price              | string     | null: false                   |
 
-- has_one :user 
+- belongs_to :user 
+- belongs_to :send
 
 ## sends テーブル
 
@@ -65,12 +66,12 @@ Things you may want to cover:
 | post_code        | string     | null: false                    |
 | prefecture_id    | integer    | null: false                    |
 | city             | string     | null: false                    |
-| address          | string     | null: false                    |
-| building_name	   | string     | foreign_key: true              |
+| address          | string     | null: false, foreign_key: true |
+| building_name	   | string     |                                |
 | phone_number     | string     | null: false                    |
 
 - belongs_to :user
-- has_one :record
+- belongs_to :record
 
 ## records テーブル
 
@@ -78,5 +79,14 @@ Things you may want to cover:
 | ---------------- | ---------- | ------------------------------ |
 | user             | references | null: false, foreign_key: true |
 | name             | string     | null: false                    |
+| description      | text       | null: false                    |
+| category_id      | integer    | null: false                    |
+| status_id        | integer    | null: false                    |
+| cost_id          | integer    | null: false                    |
+| prefecture_id    | integer    | null: false                    |
+| days_id          | integer    | null: false                    |
+| price            | string     | null: false                    |
 
 - belongs_to :user
+- belongs_to :product
+- belongs_to :send
