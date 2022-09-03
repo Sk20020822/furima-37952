@@ -40,7 +40,7 @@ Things you may want to cover:
 
 
 - has_many   :products 
-- has_many   :record
+- has_many   :records
 
 ## products テーブル
 
@@ -54,10 +54,10 @@ Things you may want to cover:
 | prefecture_id      | integer    | null: false                   |
 | days_id            | integer    | null: false                   |
 | price              | string     | null: false                   |
-| user_id            | integer    | null: false                   |
+| user               | references | null: false, foreign_key: true|
 
 - belongs_to :user 
-- belongs_to :record
+- has_one :record
 
 ## sends テーブル
 
@@ -69,7 +69,7 @@ Things you may want to cover:
 | address          | string     | null: false                    |
 | building_name	   | string     |                                |
 | phone_number     | string     | null: false                    |
-| record_id        | integer    | null: false                    |
+| record           | references | null: false, foreign_key: true |
 
 - belongs_to :record
 
@@ -78,7 +78,7 @@ Things you may want to cover:
 | Column           | Type       | Options                        |
 | ---------------- | ---------- | ------------------------------ |
 | user             | references | null: false, foreign_key: true |
-| product_id       | integer    | null: false                    |
+| product          | references | null: false, foreign_key: true |
 
 - belongs_to :user
 - belongs_to :product
