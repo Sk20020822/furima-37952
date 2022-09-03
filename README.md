@@ -40,8 +40,7 @@ Things you may want to cover:
 
 
 - has_many   :products 
-- has_many   :send 
-- has_one    :record
+- has_many   :record
 
 ## products テーブル
 
@@ -55,9 +54,10 @@ Things you may want to cover:
 | prefecture_id      | integer    | null: false                   |
 | days_id            | integer    | null: false                   |
 | price              | string     | null: false                   |
+| user_id            | integer    | null: false                   |
 
 - belongs_to :user 
-- belongs_to :send
+- belongs_to :record
 
 ## sends テーブル
 
@@ -66,11 +66,11 @@ Things you may want to cover:
 | post_code        | string     | null: false                    |
 | prefecture_id    | integer    | null: false                    |
 | city             | string     | null: false                    |
-| address          | string     | null: false, foreign_key: true |
+| address          | string     | null: false                    |
 | building_name	   | string     |                                |
 | phone_number     | string     | null: false                    |
+| record_id        | integer    | null: false                    |
 
-- belongs_to :user
 - belongs_to :record
 
 ## records テーブル
@@ -78,15 +78,8 @@ Things you may want to cover:
 | Column           | Type       | Options                        |
 | ---------------- | ---------- | ------------------------------ |
 | user             | references | null: false, foreign_key: true |
-| name             | string     | null: false                    |
-| description      | text       | null: false                    |
-| category_id      | integer    | null: false                    |
-| status_id        | integer    | null: false                    |
-| cost_id          | integer    | null: false                    |
-| prefecture_id    | integer    | null: false                    |
-| days_id          | integer    | null: false                    |
-| price            | string     | null: false                    |
+| product_id       | integer    | null: false                    |
 
 - belongs_to :user
 - belongs_to :product
-- belongs_to :send
+- has_one :send
