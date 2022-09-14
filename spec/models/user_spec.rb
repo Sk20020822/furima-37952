@@ -31,13 +31,13 @@ RSpec.describe User, type: :model do
           @user.password = 'asdzxc'
           @user.password_confirmation = 'asdzxc'
           @user.valid?
-          expect(@user.errors.full_messages).to include()
+          expect(@user.errors.full_messages).to include("Password は半角英数字混合で設定してください")
         end
         it 'passwordが半角英数字混合でなければ登録できない(数字のみ)' do
           @user.password = '123456'
           @user.password_confirmation = '123456'
           @user.valid?
-          expect(@user.errors.full_messages).to include()
+          expect(@user.errors.full_messages).to include("Password は半角英数字混合で設定してください")
         end
         it 'passwordが5文字以下では登録できない' do
           @user.password = '12345'
