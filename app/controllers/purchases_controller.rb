@@ -1,5 +1,6 @@
 class PurchasesController < ApplicationController
-  
+  before_action :authenticate_user!, except: [:index, :create]
+  before_action :set_item,only: [:index,:create]
   
   def index
     @item = Item.find(params[:item_id])
@@ -27,6 +28,10 @@ class PurchasesController < ApplicationController
     params.require(:purchase_address).permit(:post_code, :prefecture_id, :city, :home_num, :building_name, :tel).merge(token: params[:token],user_id: current_user.id, item_id: @item.id)
     
   end
+
+  def set_item
+    @item = Item.find(params[:item_id])
+   end
   
   def pay_item
     Payjp.api_key = ENV["PAYJP_SECRET_KEY"]

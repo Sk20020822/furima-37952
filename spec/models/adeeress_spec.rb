@@ -55,6 +55,28 @@ RSpec.describe PurchaseAddress, type: :model do
           @purchase_address.valid?
           expect(@purchase_address.errors.full_messages).to include("Tel is invalid")
         end
+        it 'telが9文字以下では登録できない' do
+          @purchase_address.tel = '12345678'
+          @purchase_address.tel_confirmation = '12345678'
+          @purchase_address.valid?
+          expect(@purchase_address.errors.full_messages).to include('Password is too short (minimum is 6 characters)')
+        end
+        it 'telが12文字以上では登録できない' do
+          @purchase_address.tel =  '1234567891234'
+          @purchase_address.tel_confirmation =  '1234567891234'
+          @purchase_address.valid?
+          expect(@purchase_address.errors.full_messages).to include('Password is too long (maximum is 128 characters)')
+        end
+        it 'userが紐付いていないと保存できない' do
+          @purchase_address.user_id = nil
+          @purchase_address.valid?
+          expect(@purchase_address.errors.full_messages).to include('User must exist')
+        end
+        it 'itemが紐付いていないと保存できない' do
+          @purchase_address.item_id = nil
+          @purchase_address.valid?
+          expect(@purchase_address.errors.full_messages).to include('User must exist')
+        end
       end
     end
 end
