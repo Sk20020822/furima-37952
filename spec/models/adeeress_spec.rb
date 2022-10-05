@@ -30,6 +30,11 @@ RSpec.describe PurchaseAddress, type: :model do
           @purchase_address.valid?
           expect(@purchase_address.errors.full_messages).to include("Post code can't be blank")
         end
+        it "post_codeはハイフンが含まれていなければ保存できない" do
+          @purchase_address.post_code = "7610702"
+          @purchase_address.valid?
+          expect(@purchase_address.errors.full_messages).to include("Post code is invalid")
+        end
         it 'prefecture_idが未選択だと出品できない' do
           @purchase_address.prefecture_id = 1
           @purchase_address.valid?
@@ -57,25 +62,23 @@ RSpec.describe PurchaseAddress, type: :model do
         end
         it 'telが9文字以下では登録できない' do
           @purchase_address.tel = '12345678'
-          @purchase_address.tel_confirmation = '12345678'
           @purchase_address.valid?
-          expect(@purchase_address.errors.full_messages).to include('Password is too short (minimum is 6 characters)')
+          expect(@purchase_address.errors.full_messages).to include('Tel is invalid')
         end
         it 'telが12文字以上では登録できない' do
           @purchase_address.tel =  '1234567891234'
-          @purchase_address.tel_confirmation =  '1234567891234'
           @purchase_address.valid?
-          expect(@purchase_address.errors.full_messages).to include('Password is too long (maximum is 128 characters)')
+          expect(@purchase_address.errors.full_messages).to include('Tel is invalid')
         end
         it 'userが紐付いていないと保存できない' do
           @purchase_address.user_id = nil
           @purchase_address.valid?
-          expect(@purchase_address.errors.full_messages).to include('User must exist')
+          expect(@purchase_address.errors.full_messages).to include("User can't be blank")
         end
         it 'itemが紐付いていないと保存できない' do
           @purchase_address.item_id = nil
           @purchase_address.valid?
-          expect(@purchase_address.errors.full_messages).to include('User must exist')
+          expect(@purchase_address.errors.full_messages).to include("Item can't be blank")
         end
       end
     end

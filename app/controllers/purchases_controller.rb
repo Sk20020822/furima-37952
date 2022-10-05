@@ -1,13 +1,10 @@
 class PurchasesController < ApplicationController
-  before_action :authenticate_user!, only: [:index, :create]
+  before_action :authenticate_user!, only: [:index,:create]
   before_action :set_item,only: [:index,:create]
-  before_action :prevent_url, only: [:index, :create]
+  
   
   def index
     @purchase_address = PurchaseAddress.new
-    if @item.user.id == current_user.id || @item.purchase != nil
-      redirect_to root_path
-    end
   end
 
   def create
@@ -33,7 +30,7 @@ class PurchasesController < ApplicationController
   end
 
   def prevent_url
-   if @item.user.id == current_user.id || @item.purchase != nil
+    unless @item.user.id == current_user.id || @item.purchase != nil
     redirect_to root_path
    end
   end

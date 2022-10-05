@@ -72,7 +72,7 @@ RSpec.describe User, type: :model do
           expect(another_user.errors.full_messages).to include('Email has already been taken')
         end
   
-       it 'emailは@を含まないと登録できない' do
+        it 'emailは@を含まないと登録できない' do
           @user.email = 'testmail'
           @user.valid?
           expect(@user.errors.full_messages).to include('Email is invalid')
