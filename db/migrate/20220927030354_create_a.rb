@@ -9,10 +9,9 @@ class CreateAddresses < ActiveRecord::Migration[6.0]
       t.string :tel               , null: false
       t.references :purchase      , null: false, foreign_key: true
 
-      
+
 
       
-
       t.timestamps
     end
   end
